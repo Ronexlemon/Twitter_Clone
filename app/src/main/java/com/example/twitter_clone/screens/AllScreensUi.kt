@@ -127,7 +127,9 @@ fun LandingScreen(scope: CoroutineScope,scaffoldState: ScaffoldState){
 @Composable
 fun LandingScreencontent(modifier:Modifier=Modifier,list:List<LandingScreenData>,scope:CoroutineScope,scaffoldState: ScaffoldState){
 
-    Row(horizontalArrangement = Arrangement.SpaceBetween,verticalAlignment = Alignment.CenterVertically,modifier=Modifier.fillMaxWidth().height(60.dp)){
+    Row(horizontalArrangement = Arrangement.SpaceBetween,verticalAlignment = Alignment.CenterVertically,modifier= Modifier
+        .fillMaxWidth()
+        .height(60.dp)){
         Image(painter = painterResource(id = R.drawable.cardb),contentDescription = null,
             modifier
                 .clip(
@@ -284,7 +286,10 @@ fun LandingSearch(modifier:Modifier=Modifier){
 
 
                 IconButton(onClick = { /*TODO*/ }) {
-                    Icon(Icons.Default.Settings, contentDescription = null, modifier.size(30.dp).padding(8.dp))
+                    Icon(Icons.Default.Settings, contentDescription = null,
+                        modifier
+                            .size(30.dp)
+                            .padding(8.dp))
 
                 }
 
@@ -293,7 +298,8 @@ fun LandingSearch(modifier:Modifier=Modifier){
             Box(
                 modifier
                     .fillMaxWidth()
-                    .height(200.dp).padding(8.dp)
+                    .height(200.dp)
+                    .padding(8.dp)
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.cardb),
@@ -362,6 +368,33 @@ fun TrendingSearchItems(modifier:Modifier=Modifier,list:LandingSearchTrend){
 
     }
 
+}
+@Composable
+fun LandingNotification(modifier:Modifier=Modifier){
+    Column(modifier.fillMaxSize()){
+        Column(modifier.fillMaxWidth()){
+            Row(modifier.fillMaxWidth().height(50.dp),horizontalArrangement = Arrangement.SpaceBetween){
+                Image(painter= painterResource(id = R.drawable.cardb),contentDescription = null,
+                    modifier
+                        .clip(
+                            CircleShape
+                        ).padding(top = 4.dp, start = 2.dp, bottom = 8.dp)
+                        .size(40.dp)
+                        ,contentScale = ContentScale.Crop)
+                Text(text="Notifications",modifier.padding(top = 4.dp, start = 2.dp, bottom = 8.dp))
+                Icon(imageVector = Icons.Default.Settings,contentDescription = null,
+                    modifier
+                        .size(30.dp)
+                        .padding(top = 4.dp, end = 4.dp, bottom = 8.dp))
+            }
+            Row(modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceEvenly){
+                Text(text="All",style=TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Light))
+                Text(text="Mentions",style=TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Light))
+            }
+        }
+        //Todo Add recyclerview to populate notification page
+
+    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -438,6 +471,7 @@ fun Sheet(){
 @Composable
 fun ShowAll(){
     //LandingScreen()
-     LandingSearch()
+   //  LandingSearch()
    // LandingSearchRecycler()
+    LandingNotification()
 }

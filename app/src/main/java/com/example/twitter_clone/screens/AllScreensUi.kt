@@ -32,6 +32,7 @@ import com.example.twitter_clone.NavigationGraph
 import com.example.twitter_clone.NavigationScreen
 import com.example.twitter_clone.R
 import com.example.twitter_clone.bottomnavigation.BottomNavigationBar
+import com.example.twitter_clone.data.LandingNotificationScreen
 
 import com.example.twitter_clone.data.LandingScreenData
 import com.example.twitter_clone.data.LandingSearchTrend
@@ -373,12 +374,16 @@ fun TrendingSearchItems(modifier:Modifier=Modifier,list:LandingSearchTrend){
 fun LandingNotification(modifier:Modifier=Modifier){
     Column(modifier.fillMaxSize()){
         Column(modifier.fillMaxWidth()){
-            Row(modifier.fillMaxWidth().height(50.dp),horizontalArrangement = Arrangement.SpaceBetween){
+            Row(
+                modifier
+                    .fillMaxWidth()
+                    .height(50.dp),horizontalArrangement = Arrangement.SpaceBetween){
                 Image(painter= painterResource(id = R.drawable.cardb),contentDescription = null,
                     modifier
                         .clip(
                             CircleShape
-                        ).padding(top = 4.dp, start = 2.dp, bottom = 8.dp)
+                        )
+                        .padding(top = 4.dp, start = 2.dp, bottom = 8.dp)
                         .size(40.dp)
                         ,contentScale = ContentScale.Crop)
                 Text(text="Notifications",modifier.padding(top = 4.dp, start = 2.dp, bottom = 8.dp))
@@ -392,11 +397,64 @@ fun LandingNotification(modifier:Modifier=Modifier){
                 Text(text="Mentions",style=TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Light))
             }
         }
-        //Todo Add recyclerview to populate notification page
+        // Add recyclerview to populate notification page
+        NotificationRecycler()
 
     }
 }
+@Composable //lazycolumn to populate the notification screen
+fun NotificationRecycler(){
+    val list = listOf(LandingNotificationScreen(username = "john",text="followed you",userImage =R.drawable.cardb,icon = Icons.Default.Person),
+        LandingNotificationScreen(username = "john",text="followed you",userImage =R.drawable.cardb,icon = Icons.Default.Person))
+    LazyColumn{
+        items(items=list,itemContent = {item->
+            //Create recycler items
+            Divider(modifier=Modifier.height(4.dp))
 
+            NofiticationItem(data=item)
+        })
+    }
+}
+@Composable
+fun NofiticationItem(modifier:Modifier=Modifier,data:LandingNotificationScreen){
+    Column(
+        modifier
+            .fillMaxWidth()
+            .wrapContentSize()){
+        Row(horizontalArrangement = Arrangement.SpaceEvenly,modifier=Modifier.padding(start=15.dp)){
+            Icon(imageVector = data.icon,contentDescription = null)
+            Spacer(modifier.width(4.dp))
+            Text(text=data.username,style=TextStyle(fontWeight = FontWeight.Bold,fontSize = 14.sp))
+            Spacer(modifier.width(2.dp))
+            Text(text=data.text)
+        }
+        Card(
+            modifier
+                .fillMaxSize()
+                .padding(start = 30.dp, end = 20.dp),elevation = 15.dp,shape= RoundedCornerShape(8.dp)){
+            Column(modifier.fillMaxSize()){
+                Row(horizontalArrangement = Arrangement.SpaceBetween,modifier=Modifier.fillMaxWidth()){
+                    Image(painter = painterResource(id = data.userImage), contentDescription ="userimage",
+                        modifier.padding(2.dp)
+                            .clip(
+                                CircleShape
+                            )
+                            .size(50.dp),contentScale = ContentScale.Crop )
+                    Button(onClick = {
+                                     //TODo implement follow button
+                    }, shape = RoundedCornerShape(15.dp),modifier=Modifier.padding(4.dp),colors=ButtonDefaults.buttonColors(backgroundColor = Color.Black)) {
+                        Text(text="Follow",style=TextStyle(fontSize = 18.sp,color = Color.White))
+                    }
+                }
+                Text(text=data.username,style=TextStyle(fontSize = 18.sp))
+                Text(text="@${data.username}",style=TextStyle(fontSize = 18.sp))
+                Text(modifier=Modifier.wrapContentSize(),text=data.text,style=TextStyle(fontSize = 18.sp))
+
+            }
+        }
+    }
+
+}
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FloatingButton(scope:CoroutineScope,modalBottomSheetState: ModalBottomSheetState){
@@ -474,4 +532,5 @@ fun ShowAll(){
    //  LandingSearch()
    // LandingSearchRecycler()
     LandingNotification()
+   // NotificationRecycler()
 }

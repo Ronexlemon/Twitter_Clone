@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.twitter_clone.screens.LandingMessage
+import com.example.twitter_clone.screens.LandingNotification
 import com.example.twitter_clone.screens.LandingScreen
 import com.example.twitter_clone.screens.LandingSearch
 
@@ -76,49 +78,14 @@ fun SearchScreen(){
 }
 @Composable
 fun NotificationScreen(){
-    //TODO
+    LandingNotification()
 }
 @Composable
 fun InboxScreen(){
-    //TODO
+    LandingMessage()
 }
 
-@Composable
-fun DrawerNavigation(navcontroller: NavHostController){
-    NavHost(navController=navcontroller, startDestination =DrawerNavigationScreens.Profile.route ){
-        composable(route=DrawerNavigationScreens.Profile.route){
-            ProfileScreen()
-        }
-        composable(route=DrawerNavigationScreens.Lists.route){
-          ListsScreen()
-        }
-        composable(route=DrawerNavigationScreens.Topics.route){
-           TopicsScreen()
-        }
-        composable(route=DrawerNavigationScreens.Bookmarks.route){
-            BookmarkScreen()
-        }
-        composable(route=DrawerNavigationScreens.Moments.route){
-           MomentsScreen()
-        }
-        composable(route=DrawerNavigationScreens.Monetisation.route){
-           MoneyScreen()
-        }
-        composable(route=DrawerNavigationScreens.TwiterProf.route){
-            ProfScreen()
-        }
-        composable(route=DrawerNavigationScreens.Twitter_Ads.route){
-           AdsScreen()
-        }
-        composable(route=DrawerNavigationScreens.Setting.route){
-            SettingScreen()
-        }
-        composable(route=DrawerNavigationScreens.Help.route){
-            HelpScreen()
-        }
 
-    }
-}
 @Composable
 fun ProfileScreen(){
     //TODO

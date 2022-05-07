@@ -27,11 +27,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.twitter_clone.DrawerNavigation
+//import com.example.twitter_clone.DrawerNavigation
 import com.example.twitter_clone.NavigationGraph
 import com.example.twitter_clone.NavigationScreen
 import com.example.twitter_clone.R
 import com.example.twitter_clone.bottomnavigation.BottomNavigationBar
+import com.example.twitter_clone.data.LandingMessageScreen
 import com.example.twitter_clone.data.LandingNotificationScreen
 
 import com.example.twitter_clone.data.LandingScreenData
@@ -435,7 +436,8 @@ fun NofiticationItem(modifier:Modifier=Modifier,data:LandingNotificationScreen){
             Column(modifier.fillMaxSize()){
                 Row(horizontalArrangement = Arrangement.SpaceBetween,modifier=Modifier.fillMaxWidth()){
                     Image(painter = painterResource(id = data.userImage), contentDescription ="userimage",
-                        modifier.padding(2.dp)
+                        modifier
+                            .padding(2.dp)
                             .clip(
                                 CircleShape
                             )
@@ -455,6 +457,103 @@ fun NofiticationItem(modifier:Modifier=Modifier,data:LandingNotificationScreen){
     }
 
 }
+@Composable
+fun LandingMessage(modifier:Modifier=Modifier){
+    var searchTermPeople by rememberSaveable{ mutableStateOf("")}
+    Column(modifier.fillMaxSize()){
+        Column{
+            Row {
+                Image(
+                    painter = painterResource(id = R.drawable.cardb),
+                    contentDescription = null,
+                    modifier
+                        .clip(
+                            CircleShape
+                        )
+                        .size(50.dp)
+                        .padding(top = 8.dp, start = 2.dp, bottom = 4.dp),
+                    contentScale = ContentScale.Crop
+                )
+
+                OutlinedTextField(value = searchTermPeople,
+                    onValueChange = { searchTermPeople = it },
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .wrapContentSize(),
+                    shape = RoundedCornerShape(15.dp),
+                    label = {
+                        Text(
+                            text = "Search for people and groups",
+                            modifier
+                                .align(Alignment.CenterVertically)
+                                .padding(2.dp)
+                        )
+                    })
+
+
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(Icons.Default.Settings, contentDescription = null,
+                        modifier
+                            .size(40.dp)
+                            .padding(8.dp))
+
+                }
+
+
+            }
+            //Todo implemeting lazycolumn for the messages
+            LandingMessageRecycler()
+        }
+
+    }
+}
+@Composable
+fun LandingMessageRecycler(){
+    val list = listOf(LandingMessageScreen(username="Jones",message="Thanks alot..i appreciate it",date="09 sep 21",
+    profile = R.drawable.cardb),LandingMessageScreen(username="Jones",message="Thanks alot..i appreciate it",date="09 sep 21",
+        profile = R.drawable.cardb),LandingMessageScreen(username="Jones",message="Thanks alot..i appreciate it",date="09 sep 21",
+        profile = R.drawable.cardb),LandingMessageScreen(username="Jones",message="Thanks alot..i appreciate it",date="09 sep 21",
+        profile = R.drawable.cardb),)
+    LazyColumn{
+        items(items=list,itemContent = {item->
+            //Todo implement item layout
+            LandingMessageItem(data = item)
+        })
+    }
+}
+@Composable
+fun LandingMessageItem(modifier:Modifier=Modifier,data:LandingMessageScreen){
+    Card(
+        modifier
+            .fillMaxWidth()
+            .wrapContentSize().padding(bottom = 8.dp)){
+        Row(modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceBetween){
+            Image(painter = painterResource(id = data.profile),contentDescription ="profile",
+                modifier
+                    .clip(
+                        CircleShape
+                    )
+                    .padding(top = 4.dp, start = 2.dp)
+                    .size(60.dp),contentScale = ContentScale.Crop)
+           
+            Column(modifier.fillMaxWidth()){
+                Row(
+ modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween){
+                    Text(text="${data.username}",style=TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Bold))
+                    Text(text="@${data.username}",style=TextStyle(fontSize = 12.sp,fontWeight = FontWeight.Light))
+                    Text(text="${data.date}",style=TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Light),modifier=Modifier.padding(end=2.dp))
+                }
+                Text(text="${data.message}",style=TextStyle(fontSize = 16.sp,fontWeight = FontWeight.Light),modifier=Modifier.padding(start=4.dp,top=2.dp))
+            }
+        }
+        
+        
+        
+    }
+    
+}
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FloatingButton(scope:CoroutineScope,modalBottomSheetState: ModalBottomSheetState){
@@ -531,6 +630,7 @@ fun ShowAll(){
     //LandingScreen()
    //  LandingSearch()
    // LandingSearchRecycler()
-    LandingNotification()
+    //LandingNotification()
+    LandingMessage()
    // NotificationRecycler()
 }

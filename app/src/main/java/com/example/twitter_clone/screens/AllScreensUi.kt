@@ -144,9 +144,10 @@ fun LandingScreencontent(modifier:Modifier=Modifier,list:List<LandingScreenData>
                 },contentScale = ContentScale.Crop)
         Icon(painter = painterResource(id = R.drawable.twitter),contentDescription = null)
         Column(verticalArrangement = Arrangement.SpaceBetween,modifier=Modifier.padding(8.dp)){
-            Icon(imageVector = Icons.Default.Add,contentDescription = null,modifier.size(10.dp))
-            Icon(imageVector = Icons.Default.Star,contentDescription = null,modifier.size(20.dp))
-            Icon(imageVector = Icons.Default.Add,contentDescription = null,modifier.size(10.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.star),
+                contentDescription = null
+            )
         }
 
 
@@ -199,7 +200,7 @@ fun LandingRecyclerviewContent(data:LandingScreenData,modifier: Modifier =Modifi
                     Row(horizontalArrangement = Arrangement.SpaceEvenly){
                         IconButton(onClick = { /*TODO*/ },modifier.size(30.dp)) {
                             Icon(
-                                painter = painterResource(id = R.drawable.speech),
+                                painter = painterResource(id = R.drawable.reply),
                                 contentDescription = null
                             )}
                         Text(text="700",
@@ -211,7 +212,7 @@ fun LandingRecyclerviewContent(data:LandingScreenData,modifier: Modifier =Modifi
                     Row(horizontalArrangement = Arrangement.SpaceEvenly){
                         IconButton(onClick = { /*TODO*/ },modifier.size(30.dp)) {
                             Icon(
-                                painter = painterResource(id = R.drawable.repeat),
+                                painter = painterResource(id = R.drawable.retweet),
                                 contentDescription = null
                             )}
                         Text(text="700",
@@ -221,7 +222,10 @@ fun LandingRecyclerviewContent(data:LandingScreenData,modifier: Modifier =Modifi
                     }
                     Row(horizontalArrangement = Arrangement.SpaceEvenly){
                         IconButton(onClick = { /*TODO*/ },modifier.size(30.dp)) {
-                            Icon(Icons.Default.Favorite, contentDescription = null)
+                            Icon(
+                                painter = painterResource(id = R.drawable.like),
+                                contentDescription = null
+                            )
 
                         }
                         Text(text="700",
@@ -231,7 +235,10 @@ fun LandingRecyclerviewContent(data:LandingScreenData,modifier: Modifier =Modifi
                     }
                         Row(horizontalArrangement = Arrangement.SpaceEvenly){
                             IconButton(onClick = { /*TODO*/ },modifier.size(30.dp)) {
-                                Icon(Icons.Default.Share, contentDescription = null)
+                                Icon(
+                                    painter = painterResource(id = R.drawable.share),
+                                    contentDescription = null
+                                )
 
                             }
 

@@ -24,7 +24,7 @@ fun BottomNavigationBar(navController:NavHostController){
      val currentRoute = navBackStackEntry?.destination?.route
      list.forEach { item ->
          BottomNavigationItem(
-             icon = { Icon(imageVector = item.icon, contentDescription = null) },
+             icon = { Icon(painter= painterResource(id = item.icon), contentDescription = null) },
             selected =currentRoute == item.route,selectedContentColor = Color.White,unselectedContentColor = Color.White.copy(0.4f) ,onClick = {
             navController.navigate(item.route){
                 navController.graph.startDestinationRoute?.let { screen_route->

@@ -112,7 +112,7 @@ fun DrawerItem(item:DrawerNavigationScreens, selected: Boolean, onItemClick: (Dr
                 .padding(start = 10.dp)
         ) {
             Image(
-                imageVector = item.icon,
+                painter = painterResource(id = item.icon) ,
                 contentDescription = item.title,
                 colorFilter = ColorFilter.tint(Color.White),
                 contentScale = ContentScale.Fit,
@@ -139,7 +139,7 @@ fun DrawerItem(item:DrawerNavigationScreens, selected: Boolean, onItemClick: (Dr
                 .padding(start = 10.dp)
         ) {
             Image(
-                imageVector = item.icon,
+                painter = painterResource(id = item.icon),
                 contentDescription = item.title,
                 colorFilter = ColorFilter.tint(Color.White),
                 contentScale = ContentScale.Fit,

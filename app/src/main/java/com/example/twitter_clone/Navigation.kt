@@ -6,23 +6,23 @@ import androidx.compose.material.icons.filled.*
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
-sealed class NavigationScreen(val route:String, val icon:ImageVector,){
-    object  Home:NavigationScreen("home", Icons.Default.Home)
-    object  Search:NavigationScreen("search", Icons.Default.Search)
-    object  Notification:NavigationScreen("notification", Icons.Default.Notifications)
-    object  Inbox:NavigationScreen("inbox", Icons.Default.Email)
+sealed class NavigationScreen(val route:String, val icon:Int,){
+    object  Home:NavigationScreen("home", icon=R.drawable.home)
+    object  Search:NavigationScreen("search", icon=R.drawable.search1)
+    object  Notification:NavigationScreen("notification", icon=R.drawable.notification)
+    object  Inbox:NavigationScreen("inbox", R.drawable.inbox)
 }
 
-sealed class  DrawerNavigationScreens(val route:String,val icon:ImageVector,val title:String){
-    object Profile:DrawerNavigationScreens("profile",Icons.Default.Person,"Profile")
-    object Lists:DrawerNavigationScreens("lists",Icons.Default.List,"Lists")
-    object Topics:DrawerNavigationScreens("topics",Icons.Default.Build,"Topics")
-    object Bookmarks:DrawerNavigationScreens("bookmarks",Icons.Default.Person,"Bookmarks")
-    object Moments:DrawerNavigationScreens("moments",Icons.Default.Person,"Moments")
-    object Monetisation:DrawerNavigationScreens("money",Icons.Default.Person,"Monetisation")
-    object TwiterProf:DrawerNavigationScreens("twitterProf",Icons.Default.Person,"Twitter for Professionals")
-    object Twitter_Ads:DrawerNavigationScreens("twitterAds",Icons.Default.Person,"Twitter Ads")
-    object Setting:DrawerNavigationScreens("setting",Icons.Default.Person,"Settings and privacy")
-    object Help:DrawerNavigationScreens("help",Icons.Default.Person,"Help Center")
+sealed class  DrawerNavigationScreens(val route:String,val icon:Int,val title:String){
+    object Profile:DrawerNavigationScreens("profile",icon=R.drawable.person,"Profile")
+    object Lists:DrawerNavigationScreens("lists",icon=R.drawable.list,"Lists")
+    object Topics:DrawerNavigationScreens("topics",icon=R.drawable.topic,"Topics")
+    object Bookmarks:DrawerNavigationScreens("bookmarks",icon=R.drawable.bookmark,"Bookmarks")
+    object Moments:DrawerNavigationScreens("moments",icon=R.drawable.moments,"Moments")
+    object Monetisation:DrawerNavigationScreens("money",icon=R.drawable.money,"Monetisation")
+    object TwiterProf:DrawerNavigationScreens("twitterProf",icon=R.drawable.twiterprof,"Twitter for Professionals")
+    object Twitter_Ads:DrawerNavigationScreens("twitterAds",icon=R.drawable.adds,"Twitter Ads")
+    object Setting:DrawerNavigationScreens("setting",icon=R.drawable.topic,"Settings and privacy")
+    object Help:DrawerNavigationScreens("help",icon=R.drawable.topic,"Help Center")
 
 }

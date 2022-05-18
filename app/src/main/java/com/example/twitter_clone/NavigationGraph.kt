@@ -7,10 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.twitter_clone.screens.LandingMessage
-import com.example.twitter_clone.screens.LandingNotification
-import com.example.twitter_clone.screens.LandingScreen
-import com.example.twitter_clone.screens.LandingSearch
+import com.example.twitter_clone.screens.*
 
 @Composable
 fun NavigationGraph(navcontroller:NavHostController){
@@ -88,33 +85,41 @@ fun InboxScreen(){
 
 @Composable
 fun ProfileScreen(){
-    //TODO
+    Profile()
 }
+@Composable
 fun ListsScreen(){
-    //TODO
+    ListScreenNav()
 }
+@Composable
 fun TopicsScreen(){
     //TODO
 }
-
+@Composable
 fun BookmarkScreen(){
     //TODO
 }
+@Composable
 fun MomentsScreen(){
     //TODO
 }
+@Composable
 fun MoneyScreen(){
     //TODO
 }
+@Composable
 fun ProfScreen(){
     //TODO
 }
+@Composable
 fun AdsScreen(){
     //TODO
 }
+@Composable
 fun SettingScreen(){
     //TODO
 }
+@Composable
 fun HelpScreen(){
     //TODO
 }

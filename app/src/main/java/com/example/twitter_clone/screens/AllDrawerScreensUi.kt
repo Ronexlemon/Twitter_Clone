@@ -1,21 +1,19 @@
 package com.example.twitter_clone.screens
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,10 +31,13 @@ import com.example.twitter_clone.data.LandingMessageScreen
 //Todo add profile screen
 @Composable
 fun Profile(modifier:Modifier= Modifier){
+    var change by remember{ mutableStateOf(0)}
     Column(
         modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())){
+
+
+            ){
         Row(modifier.fillMaxWidth()){
             Image(painter = painterResource(id = R.drawable.cardb),contentDescription = null,modifier.fillMaxWidth(),contentScale = ContentScale.Fit)
 
@@ -73,11 +74,18 @@ Row(
     modifier
         .fillMaxWidth()
         .padding(start = 4.dp, end = 4.dp, top = 4.dp),horizontalArrangement = Arrangement.SpaceBetween){
-    Text(text="Tweets",modifier.clickable {  })
-    Text(text="Tweets & replies",modifier.clickable {  })
-    Text(text="Media",modifier.clickable {  })
-    Text(text="Likes",modifier.clickable {  })
+    Text(text="Tweets",modifier.clickable { change =0 })
+    Text(text="Tweets & replies",modifier.clickable { change=1 })
+    Text(text="Media",modifier.clickable { change =2 })
+    Text(text="Likes",modifier.clickable {change =3  })
 }
+        when(change){
+            0 -> ProfileTweets()
+            1 -> ProfileTweets()
+            2 -> Text(text="media")
+            3 -> Text(text="likes")
+        }
+
     }
 }
 @Composable
@@ -90,6 +98,7 @@ fun ProfileTweets(modifier:Modifier=Modifier){
     Column{
         LazyColumn{
             items(items=list,itemContent = {item->
+
                 ProfileTweetsItems(item = item)
 
             })
@@ -102,7 +111,10 @@ fun ProfileTweetsItems(modifier:Modifier=Modifier,item:LandingMessageScreen){
 
 
 
-            Card(modifier.fillMaxWidth().height(200.dp), elevation = 10.dp) {
+            Card(
+                modifier
+                    .fillMaxWidth()
+                    .height(200.dp), elevation = 10.dp) {
                 Row(modifier.padding(start = 20.dp)) {
                     Icon(
                         painter = painterResource(id = R.drawable.retweet),
@@ -117,7 +129,7 @@ fun ProfileTweetsItems(modifier:Modifier=Modifier,item:LandingMessageScreen){
                             .clip(
                                 CircleShape
                             )
-                            .padding(start = 4.dp,end=4.dp)
+                            .padding(start = 4.dp, end = 4.dp)
                             .size(50.dp), contentScale = ContentScale.Crop
                     )
                     Column(modifier.fillMaxSize(),verticalArrangement = Arrangement.SpaceAround) {
@@ -175,7 +187,10 @@ fun ProfileTweetsItems(modifier:Modifier=Modifier,item:LandingMessageScreen){
                             }
 
                         }
-                        Text(text="Show this thread",modifier.clickable {  }.padding(start=18.dp),style = TextStyle(color= Color.Blue,fontSize = 16.sp))
+                        Text(text="Show this thread",
+                            modifier
+                                .clickable { }
+                                .padding(start = 18.dp),style = TextStyle(color= Color.Blue,fontSize = 16.sp))
                     }
 
                 }
@@ -185,9 +200,76 @@ fun ProfileTweetsItems(modifier:Modifier=Modifier,item:LandingMessageScreen){
 
 
 }
+//Lists Screen
+@Composable
+fun ListScreenNav(modifier:Modifier=Modifier){
+    Column(modifier.fillMaxSize(),verticalArrangement = Arrangement.SpaceEvenly){
+        Row(horizontalArrangement = Arrangement.SpaceBetween,modifier=Modifier.fillMaxWidth().wrapContentHeight()){
+            Row{
+                Icon(Icons.Default.ArrowBack,contentDescription = "back to home",modifier.align(Alignment.CenterVertically))
+                Text(text="Lists",style=TextStyle(fontSize = 16.sp,fontWeight = FontWeight.ExtraBold),modifier=Modifier.padding(8.dp))
+            }
+            Icon(Icons.Default.MoreVert,contentDescription = "lists ou're on")
+        }
+       Divider(modifier.height(2.dp))
+        Column(
+            modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),verticalArrangement = Arrangement.SpaceBetween){
+            Text(text="Pinned  Lists",style=TextStyle(fontSize = 20.sp,fontWeight = FontWeight.ExtraBold),modifier=Modifier.padding(start=2.dp,bottom = 8.dp))
+            Text(text="Nothing to see here yet -pin your favourite Lists to access them quickly",style=TextStyle(fontWeight = FontWeight.ExtraLight),modifier=Modifier.padding(start=20.dp))
+        }
+        Divider(modifier.height(4.dp))
+        Column(modifier.fillMaxWidth()){
+            Text(text="Discover new Lists",style=TextStyle(fontSize = 16.sp,fontWeight = FontWeight.ExtraBold))
+          DiscoverLists()
+            DiscoverLists()
+            DiscoverLists()
+            Text(text="Show more",style=TextStyle(color=Color.Blue),modifier=Modifier.clickable {  })
+        }
+
+        Divider(modifier.height(4.dp))
+        Column(
+            modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),verticalArrangement = Arrangement.SpaceBetween){
+            Text(text="Your Lists",style=TextStyle(fontSize = 20.sp,fontWeight = FontWeight.ExtraBold),modifier=Modifier.padding(start=2.dp))
+            Text(text="You haven't created or followed any lists.",style=TextStyle(fontWeight = FontWeight.ExtraLight),modifier=Modifier.padding(start=20.dp))
+            Text(text="when you do ,they will show up here",style=TextStyle(fontWeight = FontWeight.ExtraLight),modifier=Modifier.padding(start=20.dp))
+        }
+
+    }
+
+}
+@Composable
+fun DiscoverLists(modifier:Modifier=Modifier){
+    Row(modifier.fillMaxWidth(),horizontalArrangement = Arrangement.SpaceAround){
+        Image(painter = painterResource(id = R.drawable.cardb), contentDescription = null,modifier.
+        clip(shape= RoundedCornerShape(10.dp)).size(50.dp),
+            contentScale = ContentScale.Fit)
+        Column{
+            Text(text="Man World",style=TextStyle(fontSize = 12.sp,fontWeight = FontWeight.ExtraBold))
+            Row{
+                Image(painter = painterResource(id = R.drawable.just), contentDescription = null,
+                    modifier
+                        .clip(CircleShape)
+                        .size(20.dp),
+                    contentScale = ContentScale.Crop)
+                Text(text="@ron",style=TextStyle(fontWeight = FontWeight.ExtraLight))
+            }
+
+        }
+        OutlinedButton(onClick = { /*TODO*/ },shape= RoundedCornerShape(15.dp)) {
+            Text(text="Follow",style=TextStyle(color=Color.White))
+
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DrawerScreen(){
-    //Profile()
-    ProfileTweets()
+   // Profile()
+    //ProfileTweets()
+    ListScreenNav()
 }
